@@ -20,12 +20,8 @@
             <li>git clone https://github.com/travistheall/lint_dir</li>
         </ul>
     </li>
-    <li>
-        Run
-        <ul>
-            <li>python3 lint_dir/main.py</li>
-        </ul>
-    </li>
+    <li>See image for python script set up</li>
+    <li>Hit play</li>
     <li>Creates 2 files
         <ol>
             <li>not_in_requirements.csv: A csv file with all the packages that are used in the project, but not in requirements.txt</li>
