@@ -38,4 +38,4 @@
 </ol>
 
 <h2>Pycharm Config To Run Script</h2>
-![image](https://user-images.githubusercontent.com/58260017/148442415-b7cb3297-4c36-4027-85df-53a3439ea147.png)
+<img src="https://user-images.githubusercontent.com/58260017/148442415-b7cb3297-4c36-4027-85df-53a3439ea147.png" />
