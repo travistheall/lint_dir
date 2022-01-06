@@ -142,8 +142,8 @@ class CheckProj:
         """
         # ['proj', 'check.py', ...]
         print('linting')
-        self.lint.run()
-        self.unused = self.lint.parse_out_file()
+        # self.lint.run()
+        # self.unused = self.lint.parse_out_file()
         print('checking for unused requirements')
         proj_files = [x for x in os.listdir(self.proj) if x not in ['lint_dir']]
         for file_or_dir in tqdm(proj_files):
