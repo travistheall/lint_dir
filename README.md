@@ -3,7 +3,7 @@
 <div>
     <p>You need pandas to run this.</p>
 </div>
-<h4>I jus removed linting entirely</h4>
+<h3>I jus removed linting entirely</h3>
 <h3>Known limitation</h3>
 <p>If the requirement name is different from the import values then it will be missed. See <b>scikit-learn and sklearn</b>. I don't have an answer to that.</p>
 <h3>Steps</h3>
