@@ -8,27 +8,21 @@
 <p>If the requirement name is different from the import values then it will be missed. See <b>scikit-learn and sklearn</b>. I don't have an answer to that.</p>
 <h3>Steps</h3>
 <ol>
+    <li>cd /Users/yashbehal/projects/doorstep-django</li>
+    <li>Remove what we just did
+        <ol>
+            <li>rm -rf pylinttest</li>
+            <li>rm -rf lint_dir</li>
+    </li>
     <li>Clone me into the dd repository
         <ul>
-            <li>cd /Users/yashbehal/projects/doorstep_django</li>
-            <li>git clone https://github.com/travistheall/pylinttest</li>
-            <li>mv pylinttest/proj/lint_dir  ../..</li>
-            <li>should end up /Users/yashbehal/projects/doorstep_django/lint_dir</li>
-            <li>rm -rf pylinttest</li>
-            <li>cd /Users/yashbehal/projects/doorstep_django/lint_dir</li>
-        </ul>
-    </li>
-    <li>
-        Change pylint_dir variable to this project
-        <ul>
-            <li>Example:</li>
-            <li>pylint_dir = "/Users/yashbehal/projects/doorstep_django/lint_dir"</li>
+            <li>git clone https://github.com/travistheall/lint_dir</li>
         </ul>
     </li>
     <li>
         Run
         <ul>
-            <li>python main.py</li>
+            <li>python3 lint_dir/main.py</li>
         </ul>
     </li>
     <li>
@@ -43,70 +37,3 @@
         </ol>
     </li>
 </ol>
-<h3>Requirements.csv</h3>
-<table>
-    <tr>
-        <th>pkg</th>
-        <th>used</th>
-        <th>what to do</th>
-    </tr>
-    <tr>
-        <td>pandas</td>
-        <td>1</td>
-        <td>keep me</td>
-    </tr>
-    <tr>
-        <td>numpy</td>
-        <td>0</td>
-        <td>delete me</td>
-    </tr>
-    <tr>
-        <td>scipy</td>
-        <td>1</td>
-        <td>keep me</td>
-    </tr>
-    <tr>
-        <td>matplotlib</td>
-        <td>0</td>
-        <td>delete me</td>
-    </tr>
-    <tr>
-        <td>scikitlearn</td>
-        <td>0</td>
-        <td>delete me Error used as sklearn</td>
-    </tr>
-    <tr>
-        <td>pylint</td>
-        <td>0</td>
-        <td>delete me</td>
-    </tr>
-</table>
-
-<h3>Not_In_Requirements.csv</h3>
-<h6>still used</h6>
-<table>
-    <tr>
-        <th>pkg</th>
-        <th>used</th>
-        <th>why</th>
-    </tr>
-    <tr>
-        <td>sklearn</td>
-        <td>1</td>
-        <td>error is in requirements under diff name</td></tr>
-    <tr>
-        <td>os</td>
-        <td>1</td>
-        <td>python standard library</td>
-    </tr>
-    <tr>
-        <td>time</td>
-        <td>1</td>
-        <td>python standard library</td>
-    </tr>
-    <tr>
-        <td>lint_dr</td>
-        <td>1</td>
-        <td>project module</td>
-    </tr>
-</table>
