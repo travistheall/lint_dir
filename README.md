@@ -9,6 +9,7 @@
 <h3>Steps</h3>
 <ol>
     <li>cd /Users/yashbehal/projects/doorstep-django</li>
+    <li>Save the out.txt file from before</li>
     <li>Remove what we just did
         <ol>
             <li>rm -rf pylinttest</li>
