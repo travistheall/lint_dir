@@ -25,8 +25,7 @@
             <li>python3 lint_dir/main.py</li>
         </ul>
     </li>
-    <li>
-    Creates 3 files
+    <li>Creates 3 files
         <ol>
             <li>out.txt: The output of the pylint command</li>
             <li>not_in_requirements.csv: A csv file with all the packages that are used in the project, but not in requirements.txt</li>
@@ -37,3 +36,6 @@
         </ol>
     </li>
 </ol>
+
+<h2>Pycharm Config To Run Script</h2>
+![alt text](https://github.com/travistheall/lint_dir/blob/master/img.png?raw=true)
