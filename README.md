@@ -13,6 +13,7 @@
         <ol>
             <li>rm -rf pylinttest</li>
             <li>rm -rf lint_dir</li>
+        </ol>
     </li>
     <li>Clone me into the dd repository
         <ul>
