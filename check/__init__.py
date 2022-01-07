@@ -95,7 +95,6 @@ class CheckProj:
         :param file_or_dir: file name
         :param parent_dir: parent directory name
         """
-        print(parent_dir, file_or_dir)
         parent_w_child = os.path.join(parent_dir, file_or_dir)
 
         if len(file_or_dir.split(".")) == 1:  # if it's a directory
