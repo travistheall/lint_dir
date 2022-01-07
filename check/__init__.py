@@ -36,27 +36,30 @@ class CheckProj:
         # self.unused = self.lint.unused
         self.not_in_req = pd.Series(name='pkg')
 
-    def parse_project_file(self, f_name):
+    def parse_project_file(self, imports):
         """
         Checks each individual file for the used and unused packages
         Changes used from 0 to 1 if used.
         If it is used once then we should not remove it once iteration is over
 
-        :param f_name: file name
+        :param imports: pandas Series fille with the import statments
         """
-        with open(f_name, 'r') as file:
-            lines = [line for line in file]
-            lines = pd.Series(lines).str.strip()
-            l_import = lines[lines.str.startswith('import')]
-            f_import = lines[lines.str.startswith('from')]
-            a_import = l_import.append(f_import)
-            pkgs = a_import.str.split(" ", expand=True)[1].reset_index()[1]
-            req_pkgs = pkgs[pkgs.isin(self.req.index)].reset_index()[1]
-            self.req.at[req_pkgs, 'used'] = 1
-
-            not_req_pkgs = pkgs[~pkgs.isin(self.req.index)].reset_index()[1]
-            not_req_pkgs = not_req_pkgs.rename('pkg')
-            self.not_in_req = self.not_in_req.append(not_req_pkgs, ignore_index=True)
+        pkgs = imports.str.split(" ", expand=True)[1]
+        # account for imports like django.db import blah
+        pkgs = pkgs.str.split('.', expand=True)[0]
+        # from .lint import Lint would cause an error because nothing there
+        # this gets rid of blank imports
+        pkgs = pkgs[pkgs != ""]
+        pkgs.reset_index(drop=True)
+        req_pkgs = pkgs[pkgs.isin(self.req.index)]
+        # where this index matches in the requirements df change it to 1
+        # if there is nothing then it just sets 1 to nothing which does nothing
+        self.req.at[req_pkgs, 'used'] = 1
+        # if there is nothing then it just sets 1 to nothing which does nothing
+        not_req_pkgs = pkgs[~pkgs.isin(self.req.index)]
+        not_req_pkgs = not_req_pkgs.rename('pkg')
+        # make a huge series. we'll drop duplicates at the end b4 exporting
+        self.not_in_req = self.not_in_req.append(not_req_pkgs, ignore_index=True)
 
     def loop_dir(self, directory):
         """
@@ -67,11 +70,32 @@ class CheckProj:
         for file_or_dir in os.listdir(directory):
             self.route_file_dir(directory, file_or_dir)
 
+    def check_if_empty_file(self, f_name):
+        """
+        completelely empty files returns an error
+        This checks for the empty files or empty imports before parsing
+        :param  f_name: filename
+        """
+        with open(f_name, 'r') as file:
+            lines = [line for line in file]
+            lines = pd.Series(lines)
+            if lines.any():
+                lines = lines.str.strip()
+                # import statement starts with import
+                i_import = lines[lines.str.startswith('import')]
+                # import statement starts with from
+                f_import = lines[lines.str.startswith('from')]
+                # all import statments
+                a_imports = i_import.append(f_import)
+                if a_imports.any():
+                    self.parse_project_file(a_imports)
+
     def route_file_dir(self, parent_dir, file_or_dir):
         """
         :param file_or_dir: file name
         :param parent_dir: parent directory name
         """
+        print(parent_dir, file_or_dir)
         parent_w_child = os.path.join(parent_dir, file_or_dir)
 
         if len(file_or_dir.split(".")) == 1:  # if it's a directory
@@ -79,7 +103,7 @@ class CheckProj:
             self.loop_dir(parent_w_child)
         elif file_or_dir.split(".")[1] == 'py':  # it's a py file
             # 'check.py'.split(".") => ['Check', 'py'] => len == 2
-            self.parse_project_file(parent_w_child)
+            self.check_if_empty_file(parent_w_child)
         else:  # it's a reg  file
             pass
 
