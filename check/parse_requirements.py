@@ -12,7 +12,7 @@ def parse_requirements(proj):
 
         def find_smb(r):
             """
-            finds the package name without version number
+            finds the symbol index location within the package name
             :params r: requirement name with version
 
             examples:
