@@ -30,7 +30,6 @@ import os
 
 if __name__ == '__main__':
     print('init')
-    pylint_dir = os.getcwd()
-    check = CheckProj(base=pylint_dir)
+    check = CheckProj(lint_dir=os.getcwd())
     check.run()
     print('program finished')
