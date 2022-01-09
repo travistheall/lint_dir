@@ -75,17 +75,8 @@ def iter_packages(pkg_names):
         urllib3==1.26.4
       futures==3.3.0
       six==1.16.0
-    analytics-python==1.2.9
-      python-dateutil==2.8.2
-        six==1.16.0
-      requests==2.26.0
-        certifi==2020.12.5
-        chardet==4.0.0
-        idna==2.10
-        urllib3==1.26.4
-      six==1.16.0
-    amazon-dax-client and analytics-python are the requirements
-    everything indented it the dependencies of the above req
+    amazon-dax-client is the requirements
+    everything indented under it is the dependencies of the above req
 
     :return: a pd dataframe with the requirement and it's dependencies
     """
