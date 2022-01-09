@@ -4,7 +4,7 @@ import site
 def find_my_site_packages():
     # below should return
     # [
-    #   ' python /root/.cache/activestate/868be8dc/lib/python2.7/site-packages/pipdeptree.py > /root/django/treefreeze.txt',
+    #   ' /root/.cache/activestate/868be8dc/lib/python2.7/site-packages/',
     #   '/root/.cache/activestate/868be8dc/lib/site-python'
     # ]
     pkgs_dir = site.getsitepackages()[0]
