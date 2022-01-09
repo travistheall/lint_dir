@@ -5,7 +5,7 @@ import os
 import time
 from datetime import datetime
 import pandas as pd
-from .parse_requirements import parse_requirements
+from .parse_tree_freeze import parse_tree_freeze
 
 
 class CheckProj:
@@ -29,7 +29,7 @@ class CheckProj:
         self.now = str(time.mktime(datetime.now().timetuple()))[:-2]
         self.lint_dir = lint_dir
         self.proj = os.path.dirname(lint_dir)
-        self.req = parse_requirements(self.proj)
+        self.req = parse_tree_freeze(self.proj)
         self.not_in_req = pd.Series(name='pkg')
 
     def parse_project_file(self, imports):
@@ -50,15 +50,16 @@ class CheckProj:
         pkgs = pkgs[pkgs != ""]
         pkgs.reset_index(drop=True)
         req_pkgs = pkgs[pkgs.isin(self.req.index)]
-        # where this index matches in the requirements df change it to 1
-        # if there is nothing then it just sets 1 to nothing which does nothing
-        self.req.at[req_pkgs, 'used'] = 1
-        # ~ is a bitwise not in python means not in requirements below
-        not_req_pkgs = pkgs[~pkgs.isin(self.req.index)]
-        not_req_pkgs = not_req_pkgs.rename('pkg')
-        # if there is nothing then it just appends nothing so nothing happens
-        self.not_in_req = self.not_in_req.append(not_req_pkgs, ignore_index=True)
-        # make a huge series. we'll drop duplicates at the end b4 exporting
+        if req_pkgs.any():
+            # where this index matches in the requirements df change it to 1
+            self.req.at[req_pkgs, 'used'] = 1
+        else:
+            # ~ is a bitwise not in python means not in requirements below
+            not_req_pkgs = pkgs[~pkgs.isin(self.req.index)]
+            not_req_pkgs = not_req_pkgs.rename('pkg')
+            # if there is nothing then it just appends nothing so nothing happens
+            self.not_in_req = self.not_in_req.append(not_req_pkgs, ignore_index=True)
+            # make a huge series. we'll drop duplicates at the end b4 exporting
 
     def loop_dir(self, directory):
         """
@@ -119,12 +120,12 @@ class CheckProj:
         not_in_requirements-now.csv:
             IMPORT statements that were not declared in requirement.txt but were used
         """
-        req_csv = os.path.join(self.lint_dir, f'requirements-{self.now}.csv')
-        print(f'exporting to {req_csv}')
+        req_csv = os.path.join(self.lint_dir, 'requirements-'+self.now+'.csv')
+        print('exporting to ' + req_csv)
         self.req.to_csv(req_csv)
-        not_req_csv = os.path.join(self.lint_dir, f'not_in_requirements-{self.now}.csv')
+        not_req_csv = os.path.join(self.lint_dir, 'not_in_requirements-'+self.now+'.csv')
         self.not_in_req.drop_duplicates(keep='first', inplace=True)
-        print(f'exporting to {not_req_csv}')
+        print('exporting to ' + not_req_csv)
         self.not_in_req.to_csv(not_req_csv, index=False)
 
     def run(self):

@@ -10,7 +10,11 @@
 <h3>Steps</h3>
 <ol>
     <li>cd /Users/yashbehal/projects/doorstep-django</li>
-    <li>Save the out.txt file from before</li>
+    <li>Run 'pipdeptree > treefreeze.txt'
+        <ul>
+            <li>If I don't work run 'pip install pipdeptree' and run again</li>
+        </ul>
+    </li>
     <li>Remove what we just did
         <ol>
             <li>rm -rf pylinttest</li>
@@ -33,6 +37,7 @@
             <li>requirements.csv: A csv file with all the packages from requirements.txt and 1 if used 0 if not</li>
         </ol>
     </li>
+    <li>Let me know how this goes. It's sunday and I'm tired of working.</li>
 </ol>
 
 <h2>Pycharm Config To Run Script</h2>
