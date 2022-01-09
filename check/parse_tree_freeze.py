@@ -113,7 +113,7 @@ def iter_packages(pkg_names):
 
 def parse_tree_freeze(proj):
     """
-    Reads the requirements.txt to create a pandas dataframe to check pylint results
+    Reads the treefreeze.txt to create a pandas dataframe to check pylint results
     """
     with open(os.path.join(proj, 'treefreeze.txt'), 'r') as file:
         tree_file = pd.Series([line for line in file])
