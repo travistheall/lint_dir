@@ -107,6 +107,7 @@ def iter_packages(pkg_names):
 
         req_dep = req_dep.append(l_req_dep)
 
+    # sets index for faster look ups
     req_dep.set_index('pkg', inplace=True)
     return req_dep
 
@@ -119,8 +120,6 @@ def parse_tree_freeze(proj):
         tree_file = pd.Series([line for line in file])
 
     tree_file = pd.Series(tree_file)
-    # runs the two functions above and adds column names
-    # ... well index names that get transposed into column names
     # symbol location: dataframe
     symb_loc = pd.DataFrame([tree_file, tree_file.apply(lambda r: find_symb(r))], index=['pkg', 'symbloc']).T
     # pkg_names series
@@ -130,5 +129,4 @@ def parse_tree_freeze(proj):
     # creates the base for requirements.csv
     # starts as 0 and becomes 1 when we encounter the import later
     req_dep['used'] = 0
-    # sets index for faster look ups
     return req_dep

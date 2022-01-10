@@ -2,7 +2,7 @@
 <h3>Has been optimized for speed</h3>
 
 <div>
-    <p>You need python3 and pandas to run this.</p>
+    <p>You need python3, pandas, and pipdeptree to run this.</p>
 </div>
 <h3>Steps</h3>
 <ol>
