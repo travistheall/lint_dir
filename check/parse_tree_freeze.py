@@ -112,10 +112,26 @@ def iter_packages(pkg_names):
     return req_dep
 
 
+def parse_requirements(proj):
+    """
+    Reads the treefreeze.txt to create a pandas dataframe to check pylint results
+    """
+    with open(os.path.join(proj, 'requirements.txt'), 'r') as file:
+        reqs = pd.Series([line for line in file])
+
+    symb_loc = pd.DataFrame([reqs, reqs.apply(lambda r: find_symb(r))], index=['pkg', 'symbloc']).T
+    # pkg_names series
+    pkg_names = symb_loc.apply(lambda r: find_name(r), axis='columns')
+    # series names become column titles
+    pkg_names = pkg_names.rename('pkg')
+    return pkg_names
+
+
 def parse_tree_freeze(proj):
     """
     Reads the treefreeze.txt to create a pandas dataframe to check pylint results
     """
+    reqs = parse_requirements(proj)
     with open(os.path.join(proj, 'treefreeze.txt'), 'r') as file:
         tree_file = pd.Series([line for line in file])
 
@@ -125,6 +141,9 @@ def parse_tree_freeze(proj):
     # pkg_names series
     pkg_names = symb_loc.apply(lambda r: find_name(r), axis='columns')
     pkg_names = pkg_names.rename('pkg')
+
+    not_in_tree_file = reqs[~reqs.isin(pkg_names)]
+    pkg_names = pkg_names.append(not_in_tree_file)
     req_dep = iter_packages(pkg_names)
     # creates the base for requirements.csv
     # starts as 0 and becomes 1 when we encounter the import later

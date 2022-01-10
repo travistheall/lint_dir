@@ -120,13 +120,14 @@ class CheckProj:
         not_in_requirements-now.csv:
             IMPORT statements that were not declared in requirement.txt but were used
         """
-        req_csv = os.path.join(self.lint_dir, 'requirements-'+self.now+'.csv')
+        req_csv = os.path.join(self.lint_dir, 'requirements-' + self.now + '.csv')
         print('exporting to ' + req_csv)
+        self.req.sort_values(by=['used'], inplace=True, ascending=False)
         self.req.to_csv(req_csv)
-        not_req_csv = os.path.join(self.lint_dir, 'not_in_requirements-'+self.now+'.csv')
+        not_req_csv = os.path.join(self.lint_dir, 'not_in_requirements-' + self.now + '.csv')
         self.not_in_req.drop_duplicates(keep='first', inplace=True)
         print('exporting to ' + not_req_csv)
-        self.not_in_req.to_csv(not_req_csv, index=False)
+        self.not_in_req.to_csv(not_req_csv, index=False, header=True)
 
     def run(self):
         """
