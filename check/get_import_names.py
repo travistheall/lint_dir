@@ -19,10 +19,12 @@ def get_import_names():
         # Pillow-6.2.2.1-py2.7.egg-info, cryptography-3.3.2.dist-info, etc
         pkg_path = os.path.join(pkgs_dir, pkg_dir)
         if os.path.isdir(pkg_path):
+            no_top_lvl_txt = True
             for pkg_contents in os.listdir(pkg_path):
                 if pkg_contents == "top_level.txt":
+                    no_top_lvl_txt = False
                     top_level_file = os.path.join(pkg_path, "top_level.txt")
-                    # PIL, _openssl, etc
+                    # PIL, cryptography, etc
                     import_name = open(top_level_file, "r").readline().strip()
                     import_names.append([pkg_dir, import_name])
 

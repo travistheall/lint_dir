@@ -123,6 +123,7 @@ class CheckProj:
         req_csv = os.path.join(self.lint_dir, 'requirements-' + self.now + '.csv')
         print('exporting to ' + req_csv)
         self.req.sort_values(by=['used'], inplace=True, ascending=False)
+        self.req.drop_duplicates(keep='first', inplace=True)
         self.req.to_csv(req_csv)
         not_req_csv = os.path.join(self.lint_dir, 'not_in_requirements-' + self.now + '.csv')
         self.not_in_req.drop_duplicates(keep='first', inplace=True)

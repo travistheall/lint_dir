@@ -95,7 +95,7 @@ def iter_packages(pkg_names):
                 dep = import_names.loc[dep]['import_name']
                 l_req_dep = pd.DataFrame(data=[[req, dep]], columns=['pkg', 'dep'])
             except KeyError:
-                print('Error Dependency ' + dep + ' of ' + req + 'not  found in ' + site_pkg_directory)
+                print('Error Dependency ' + dep + ' of ' + req + ' not  found in ' + site_pkg_directory)
         else:
             # then it's a requirement
             req = req_or_dep

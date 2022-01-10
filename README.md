@@ -31,7 +31,7 @@
     <li> Current Errors to expect:
         <ul>
             <li>Error Requirement backoff not found in /root/.cache/activestate/868be8dc/lib/python2.7/site-packages</li>
-            <li>Error Dependency subprocess32 of matplotlibnot  found in /root/.cache/activestate/868be8dc/lib/python2.7/site-packages</li>
+            <li>Error Dependency subprocess32 of matplotlib not found in /root/.cache/activestate/868be8dc/lib/python2.7/site-packages</li>
             <li>Error Requirement pkgconfig not found in /root/.cache/activestate/868be8dc/lib/python2.7/site-packages</li>
             <li>Error Requirement poetry-core not found in /root/.cache/activestate/868be8dc/lib/python2.7/site-packages</li>
             <li>Error Requirement Python not found in /root/.cache/activestate/868be8dc/lib/python2.7/site-packages</li>
